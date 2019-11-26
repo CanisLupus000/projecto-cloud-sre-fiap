@@ -1,6 +1,27 @@
 version: "3"
 services:
   nginx:
+    container_name: nginx-fiap
     image: nginx:alpine
     ports: 
       - 85:80
+  wordpress:
+    container_name: wordpress-fiap
+    image: wordpress
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: fiap
+      WORDPRESS_DB_PASSWORD: 123456
+      WORDPRESS_DB_NAME: fiapdb
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: fiapdb
+      MYSQL_USER: fiap
+      MYSQL_PASSWORD: 123456
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
